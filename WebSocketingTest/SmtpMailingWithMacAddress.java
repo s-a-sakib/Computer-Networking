@@ -15,11 +15,13 @@ class SmtpMailingWithMacAddress{
             NetworkInterface networkInterface = networkInterfaces.nextElement();
             byte[] mac = networkInterface.getHardwareAddress();
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mac.length; i++) {
-                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+            for(byte b: mac){
+                sb.append(String.format("%02X:", b));
             }
 
-            // Code for smtp server
+            sb.deleteCharAt(sb.length()-1);
+            System.out.println("MAC Address: " + sb.toString());
+            Code for smtp server
             SSLSocket s = (SSLSocket) SSLSocketFactory.getDefault().createSocket("smtp.gmail.com", 465);
             dos = new DataOutputStream(s.getOutputStream());
             br = new BufferedReader(new InputStreamReader(s.getInputStream()));
